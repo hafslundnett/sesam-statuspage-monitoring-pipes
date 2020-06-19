@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sesam-statuspage-monitoring-pipes
+spec:
+  selector:
+    matchLabels:
+      app: sesam-statuspage-monitoring-pipes
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  replicas: 1
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sesam-statuspage-monitoring-pipes # ENDRES PER APPLIKASJON
+  template:
+    metadata:
+      labels:
+        app: sesam-statuspage-monitoring-pipes # ENDRES PER APPLIKASJON
+    spec:
+      serviceAccountName: sesam-statuspage-monitoring-pipes # ENDRES PER APPLIKASJON
+      imagePullSecrets:
+      - name: containerregistryprodsecret
+      containers:
+      - name: sesam-statuspage-monitoring-pipes # ENDRES PER APPLIKASJON
+        image: containerregistryprod.azurecr.io/sesam-statuspage-monitoring-pipes:imagetag
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "750Mi"
+        env:
+          - name: page_id
+            value: "p5k58vp9ll32"
+          - name: sesam_node_url
+            value: "https://3c9170a1.sesam.cloud/api"
+          - name: status_page_groups
+            value: "[\"Sesam-Vehicle\"]"

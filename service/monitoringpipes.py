@@ -4,6 +4,7 @@ import logging
 import os
 import sys
 from enum import Enum
+from vault_client import VaultClient
 
 
 import requests
@@ -13,7 +14,9 @@ from statuspage import StatusPageConnection
 
 __author__ = "Ravish Ranjan"
 
-required_env_vars = ["api_key", "jwt", "page_id", "sesam_node_url", "status_page_groups"]
+required_env_vars = ["page_id", "sesam_node_url", "status_page_groups"]
+
+load_vars_from_vault = ["api_key", "jwt"]
 
 
 class AppConfig(object):
@@ -37,6 +40,15 @@ for env_var in required_env_vars:
     if not value:
         missing_env_vars.append(env_var)
     setattr(config, env_var, value)
+
+
+hashivault = VaultClient()
+for env_var in load_vars_from_vault:
+    value = hashivault.ensure_has_value(f'sesam-extensions/kv/sesam-monitoring/{env_var}')
+    if not value:
+        missing_env_vars.append(env_var)
+    setattr(config, env_var, value)
+
 
 # logging settings
 logger = logging.getLogger('status_page_manager')
