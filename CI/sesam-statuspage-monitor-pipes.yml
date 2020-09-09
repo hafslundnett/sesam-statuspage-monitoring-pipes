@@ -41,4 +41,4 @@ spec:
           - name: sesam_node_url
             value: "https://3c9170a1.sesam.cloud/api"
           - name: status_page_groups
-            value: "[\"Sesam-Vehicle\", \"Sesam-Poweroutage\"]"
+            value: "[\"Sesam-Vehicle\"]"
