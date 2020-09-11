@@ -77,10 +77,10 @@ def prepare_payload():
     valid_component_groups = [g for g in component_group_list if
                               g['GroupName'] in config.status_page_groups]
     logger.debug(f'Status page groups: {config.status_page_groups}')
-    logger.debug(f'Pipes for status page: {pipe_list}')
-    logger.debug(f'Component group list: {print_json(load_json(component_group_list), indent=2)}')
-    logger.debug(f'Component list: {print_json(load_json(component_list), indent=2)}')
-    logger.debug(f'Valid component groups: {print_json(load_json(valid_component_groups), indent=2)}')
+    logger.debug(f'Pipes for status page: {print_json(pipe_list, indent=2)}')
+    logger.debug(f'Component group list: {print_json(component_group_list, indent=2)}')
+    logger.debug(f'Component list: {print_json(component_list, indent=2)}')
+    logger.debug(f'Valid component groups: {print_json(valid_component_groups, indent=2)}')
 
     if valid_component_groups:
         if pipe_list:
@@ -171,10 +171,12 @@ def get_sesam_node_pipe_list():
                 sys.exit(1)
     except Timeout as e:
         logger.error(f"Timeout issue while fetching node pipes {e}")
+        logger.warning(f"Updating all components directly: {ComponentStatusEnum.DEGRADED.value}")
         update_all_component_directly(ComponentStatusEnum.DEGRADED.value)
         sys.exit(1)
     except ConnectionError as e:
         logger.error(f"ConnectionError issue while fetching node pipes {e}")
+        logger.warning(f"Updating all components directly: {ComponentStatusEnum.MAJOR.value}")
         update_all_component_directly(ComponentStatusEnum.MAJOR.value)
         sys.exit(1)
     except Exception as e:
