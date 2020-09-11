@@ -5,7 +5,7 @@ import os
 import sys
 from enum import Enum
 from vault_client import VaultClient
-
+from json import loads as load_json, dumps as print_json
 
 import requests
 from requests.exceptions import ConnectionError
@@ -76,10 +76,11 @@ def prepare_payload():
 
     valid_component_groups = [g for g in component_group_list if
                               g['GroupName'] in config.status_page_groups]
-    logger.debug(f'Pipes for status page: {pipe_list}')
-    logger.debug(f'Component group list: {component_group_list}')
-    logger.debug(f'Component list: {component_list}')
-    logger.debug(f'Valid component groups: {valid_component_groups}')
+    logger.debug(f'Status page groups: {config.status_page_groups}')
+    logger.debug(f'Pipes for status page: {print_json(load_json(pipe_list), indent=2)}')
+    logger.debug(f'Component group list: {print_json(load_json(component_group_list), indent=2)}')
+    logger.debug(f'Component list: {print_json(load_json(component_list), indent=2)}')
+    logger.debug(f'Valid component groups: {print_json(load_json(valid_component_groups), indent=2)}')
 
     if valid_component_groups:
         if pipe_list:
