@@ -77,7 +77,7 @@ def prepare_payload():
     valid_component_groups = [g for g in component_group_list if
                               g['GroupName'] in config.status_page_groups]
     logger.debug(f'Status page groups: {config.status_page_groups}')
-    logger.debug(f'Pipes for status page: {print_json(load_json(pipe_list), indent=2)}')
+    logger.debug(f'Pipes for status page: {pipe_list}')
     logger.debug(f'Component group list: {print_json(load_json(component_group_list), indent=2)}')
     logger.debug(f'Component list: {print_json(load_json(component_list), indent=2)}')
     logger.debug(f'Valid component groups: {print_json(load_json(valid_component_groups), indent=2)}')
