@@ -69,6 +69,7 @@ class StatusPageConnection(object):
             response = self.session.get(url)
             component_list = list()
             if response.ok:
+                logger.debug(f'Status page component list response: {json.dumps(json.loads(response.content), indent=2)}')
                 component_keys = ['Name', 'Status', 'ComponentId', 'GroupId']
                 for li in response.json():
                     if li['group'] is False:
