@@ -1,10 +1,14 @@
 import json
 import logging
 import time
-
+import os
 import requests
 
 logger = logging.getLogger('status_page_manager')
+logger.setLevel({"INFO": logging.INFO,
+                 "DEBUG": logging.DEBUG,
+                 "WARNING": logging.WARNING,
+                 "ERROR": logging.ERROR}.get(os.getenv("LOG_LEVEL", "INFO")))  # Default log level: INFO
 
 
 class StatusPageConnection(object):

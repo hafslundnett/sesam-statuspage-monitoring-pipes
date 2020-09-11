@@ -43,4 +43,4 @@ spec:
           - name: status_page_groups
             value: "[\"Sesam-Vehicle\", \"Sesam-Poweroutage\", \"Sesam-DiKo\"]"
           - name: LOG_LEVEL
-            value: "DEBUG"
+            value: "INFO"
