@@ -21,7 +21,6 @@ class StatusPageConnection(object):
         session.headers = headers
 
     def create_component_status_page(self, item):
-        return
         try:
             if item:
                 data_send = {'component': {'name': item['Name'], 'group_id': item['Group_Id'], 'status': item['Status'],
@@ -37,7 +36,6 @@ class StatusPageConnection(object):
             logger.error(f"Issue while creating components through status page api {e}")
 
     def update_component_status_page(self, item):
-        return
         if item['GroupId'] is not None:
             payload = {'component': {'status': item['Status'], 'group_id': item['GroupId']}}
         else:
@@ -54,7 +52,6 @@ class StatusPageConnection(object):
             logger.error(f"Issue while updating components for status page : {e}")
 
     def delete_component_status_page(self, item):
-        return
         try:
             url = self.BASE_URL + '/pages/' + self.page_id + '/components/' + item['ComponentId']
             response = self.session.delete(url)

@@ -166,11 +166,11 @@ def get_sesam_node_pipe_list():
                 sys.exit(1)
     except Timeout as e:
         logger.error(f"Timeout issue while fetching node pipes {e}")
-        #update_all_component_directly(ComponentStatusEnum.DEGRADED.value)
+        update_all_component_directly(ComponentStatusEnum.DEGRADED.value)
         sys.exit(1)
     except ConnectionError as e:
         logger.error(f"ConnectionError issue while fetching node pipes {e}")
-        #update_all_component_directly(ComponentStatusEnum.MAJOR.value)
+        update_all_component_directly(ComponentStatusEnum.MAJOR.value)
         sys.exit(1)
     except Exception as e:
         logger.error(f"issue while fetching node pipes {e}")
@@ -180,7 +180,6 @@ def get_sesam_node_pipe_list():
 def update_all_component_directly(status):
     component_group_list = status_page_conn.get_status_page_component_group_list()
     component_list = status_page_conn.get_status_page_component_list()
-
     valid_component_groups = [g for g in component_group_list if
                               g['GroupName'] in config.status_page_groups]
 

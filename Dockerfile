@@ -5,8 +5,6 @@ LABEL author="ravish.ranjan@sesam.io"
 RUN apk update
 RUN apk add tzdata
 RUN apk add openssh
-RUN apk add bash
-RUN apk add busybox-extras
 RUN rm -f /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Oslo /etc/localtime
 RUN pip3 install --upgrade pip
